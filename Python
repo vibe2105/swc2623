@@ -74,10 +74,3 @@ print("Top student (Average >= 90): ", end="")
 # :.2f float (2 titik perpuluhan)
 for s in top_students:
     print(f"{s.name} | ({s.student_id}) | {s.average_grade():.2f}")
-
-Output
- 
-
-A short explanation (150–200 words) describing how Python supports multiple programming paradigms.
-Python supports many types of programming styles. This is called multi-paradigm programming. We can use different ways of writing code in one language. As we can see in the code, there are 3 styles. The first style is functional programming which focuses on using functions to process data. In this style, we can use tools like lambda, map(), filter() and reduce() to make the code shorter and cleaner. The second style is procedural programming where the program is written step by step using functions. Last style is object-oriented programming (OOP) where we use classes and objects to organize and actions together. For example, a “Student” class can store student’s name, id, marks, and calculate the average. Python allows use to mix all these styles in one program make it flexible and easy to learn for a newbie. This leading to python became popular for data analyst, web developer and even artificial intelligence (AI).
-(154 words)

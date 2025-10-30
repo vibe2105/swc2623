@@ -1,0 +1,83 @@
+# Part C : Multi-Paradigm Programming (Pyhton)
+
+# Import Python Library like pandas for data analyst (requirement 4)
+# reduce = gabung semua nombor jadi satu nilai (requirement 2)
+import pandas as pd
+from functools import reduce 
+
+# Create student class (requirement 1)
+# __init__ as constructor
+# def average_grade ni function
+# sum ni tambah semua data ah, so 30+40+50=120
+# len ni macam jumlah data yang ada, contoh kalau ada yang dapat 30 40 50 so jumlahnya 3
+# IF ELSE untuk predict performance average grade (requirement 3)
+# def predict_performance function
+class Student:
+    def __init__ (self,name,student_id,courses,grades):
+            self.name = name
+            self.student_id = student_id
+            self.courses = courses
+            self.grades = grades
+
+    def average_grade(self):
+        return sum(self.grades) / len(self.grades)
+    
+    def predict_performance(self):
+        avg = self.average_grade()
+        if avg >= 90:
+            return "Mumtaz"
+        elif avg >= 70:
+            return "Jayyid Jiddan"
+        elif avg >= 50:
+            return "Maqbul"
+        else:
+            return "Dhoif"
+        
+# insert data 
+students =  [
+            Student("Fifi", "AM2508020338", ["Sirah", "Aqidah", "Jawi", "Akhlak", "Tajwid"], [80, 75, 90, 98, 92]),
+            Student("Azhar", "AM2508020336", ["Sirah", "Aqidah", "Jawi", "Akhlak", "Tajwid"], [60, 65, 70, 40, 80]),
+            Student("Anwar", "AM2508020334", ["Sirah", "Aqidah", "Jawi", "Akhlak", "Tajwid"], [90, 88, 95, 93, 95]),
+            Student("Amin", "AM2508020332", ["Sirah", "Aqidah", "Jawi", "Akhlak", "Tajwid"], [45, 55, 40, 62, 30]), 
+            ]
+            
+# Use functional-style operations like lambda, map, filter and reduce (requirement 2)  
+
+# map() method ni untuk dapat average grade
+# map = gandakan semua nombor
+averages = list(map(lambda s: s.average_grade(), students))         
+            
+# filter() method untuk cari top students
+# filter tapis ikut syarat
+top_students = list(filter(lambda s: s.average_grade() >= 90, students))
+            
+# reduce() method untuk campur nilai semua avg            
+# as mention atas tadi, reduce ini gabung semua avg jadi satu
+overall_avg = reduce(lambda x, y: x+y, averages) / len(averages)
+            
+# using pandas library untuk data analyst
+data =  {
+            "Name": [s.name for s in students],
+            "ID": [s.student_id for s in students],
+            "Average": [s.average_grade() for s in students], #average_grade dari ifelse
+            "Prediction": [s.predict_performance() for s in students] #predict_performance dari ifelse
+        }
+df = pd.DataFrame(data)    #pd datang sebab declare tadi pandas as pd        
+
+#output
+print("========= Student Performance Review =========")
+print(df, "\n")
+print("Overall Average Grade: ", overall_avg)
+print("Top student (Average >= 90): ", end="") 
+    
+# f ni untuk jadikan semua data jadi string
+# :.2f float (2 titik perpuluhan)
+for s in top_students:
+    print(f"{s.name} | ({s.student_id}) | {s.average_grade():.2f}")
+
+Output
+ 
+
+A short explanation (150–200 words) describing how Python supports multiple programming paradigms.
+Python supports many types of programming styles. This is called multi-paradigm programming. We can use different ways of writing code in one language. As we can see in the code, there are 3 styles. The first style is functional programming which focuses on using functions to process data. In this style, we can use tools like lambda, map(), filter() and reduce() to make the code shorter and cleaner. The second style is procedural programming where the program is written step by step using functions. Last style is object-oriented programming (OOP) where we use classes and objects to organize and actions together. For example, a “Student” class can store student’s name, id, marks, and calculate the average. Python allows use to mix all these styles in one program make it flexible and easy to learn for a newbie. This leading to python became popular for data analyst, web developer and even artificial intelligence (AI).
+(154 words)

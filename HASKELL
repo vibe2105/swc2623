@@ -1,0 +1,38 @@
+-- list of tuple
+student :: [(String, [Int])]
+student =
+  [ ("Arman", [70, 78, 81])
+  , ("Aqil", [75, 77, 85])
+  , ("Intan", [78, 85, 87])
+  , ("Aiman", [80, 77, 60])
+  , ("Linda", [71, 76, 82])
+  ]
+
+
+-- function to calculate average
+average :: [Int] -> Float
+average grades = fromIntegral (sum grades) / fromIntegral (length grades)
+
+-- function to calculate student average
+studentAverages :: [(String, Float)]
+studentAverages = [(name, average grades) | (name, grades) <- student]
+
+-- student who have (>80)
+distinction :: [(String, Float)]
+distinction = [(name, avg) | (name, avg) <- studentAverages, avg > 80]
+
+-- find top student
+topStudent :: (String, Float)
+topStudent = foldl1 (\acc x -> if snd x > snd acc then x else acc) studentAverages
+
+--display result
+main :: IO ()
+main = do
+  putStrLn "=== Student Averages ==="
+  mapM_ print studentAverages
+
+  putStrLn "\n=== Students with Distinction (Avg > 80) ==="
+  mapM_ print distinction
+
+  putStrLn "\n=== Top Performing Student ==="
+  print topStudent

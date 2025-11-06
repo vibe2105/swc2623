@@ -1,0 +1,37 @@
+% ==========================
+% course_advisory.pl
+% ==========================
+% ---------- FACTS ----------
+% Students: student(Name, ID)
+student('Arif', m1).
+student('Anwar', m2).
+student('Arman', m3).
+% Enrollment: enrolled(StudentID, CourseCode)
+enrolled(m1, cc101).
+enrolled(m1, ct204).
+enrolled(m2, cc101).
+enrolled(m3, cc101).
+enrolled(m3, ct204).
+enrolled(m3, ct206).
+% Course prerequisites: prerequisite(CourseCode, PreReq)
+prerequisite(ct204, cc101).
+prerequisite(ct206, ct204).
+% All courses
+course(cc101).
+course(ct204).
+course(ct206).
+% Required courses for graduation
+required_courses([cc101, ct204, ct206]).
+% ---------- RULES ----------
+% 1) Check if a student is eligible to enroll in a course
+eligible(StudentID, CourseCode) :-
+course(CourseCode),
+\+ (prerequisite(CourseCode, PreReq), \+ enrolled(StudentID, PreReq)).
+% 2) Recommend suitable courses (eligible and not yet enrolled)
+recommend_courses(StudentID, CourseCode) :-
+eligible(StudentID, CourseCode),
+\+ enrolled(StudentID, CourseCode).
+% 3) Check if a student is eligible for graduation (completed all required courses)
+eligible_graduation(StudentID) :-
+required_courses(ReqCourses),
+forall(member(C, ReqCourses), enrolled(StudentID, C)).
